@@ -65,7 +65,6 @@ function initReportSocket(){
         document.getElementById('imageTitle').innerHTML=imageTitle;
 
         initCanvas(socket, imageURL);
-
     });
 
     socket.on('chat',function (room,userId,chatText){

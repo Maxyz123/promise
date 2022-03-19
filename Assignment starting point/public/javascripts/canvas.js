@@ -13,6 +13,8 @@ let color = 'red', thickness = 4;
  */
 function initCanvas(sckt, imageUrl) {
     socket = sckt;
+    room=document.getElementById('roomNo').value;
+    userId=document.getElementById('name').value
     let flag = false,
         prevX, prevY, currX, currY = 0;
     let canvas = $('#canvas');
@@ -21,9 +23,10 @@ function initCanvas(sckt, imageUrl) {
     let ctx = cvx.getContext('2d');
     img.src = imageUrl;
 
+    //initDrawingSocket()
 
     //room=document.getElementById('roomNo').value;
-   // userId=document.getElementById('name').value;
+    //userId=document.getElementById('name').value;
     //initImage(room, userId);
 
     // event on the canvas when the mouse is on it
@@ -41,9 +44,11 @@ function initCanvas(sckt, imageUrl) {
         // if the flag is up, the movement of the mouse draws on the canvas
         if (e.type === 'mousemove') {
             if (flag) {
-                drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
+                //drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
                 // @todo if you draw on the canvas, you may want to let everyone know via socket.io (socket.emit...)  by sending them
                 // room, userId, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness
+                socket.emit('draw', room, userId, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness)
+
             }
         }
     });
@@ -145,7 +150,15 @@ function drawOnCanvas(ctx, canvasWidth, canvasHeight, prevX, prevY, currX, currY
     ctx.closePath();
 }
 
-function initImage(room, userId){
+socket.on('draw',function (room, userId, width, height, prevX, prevY, currX, currY, color, thickness){
 
+    let canvas = $('#canvas');
+    let cvx = document.getElementById('canvas');
+    //let img = document.getElementById('image');
+    let ctx = cvx.getContext('2d');
 
-}
+    canvas.width=width;
+    canvas.height=height;
+
+    drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
+})

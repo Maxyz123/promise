@@ -19,6 +19,11 @@ exports.init = function(io) {
         io.sockets.to(room).emit('chat',room,userId,chatText);
       })
 
+      socket.on('draw', function ( room, userId, width, height, prevX, prevY, currX, currY, color, thickness){
+
+        io.sockets.to(room).emit('draw', room, userId, width,height, prevX, prevY, currX, currY, color, thickness)
+      })
+
       socket.on('disconnect',function (room, userId){
       console.log("Room: "+room+" User ID: "+userId+" has disconnected.")
       });
