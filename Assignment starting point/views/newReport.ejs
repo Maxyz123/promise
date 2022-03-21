@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div style="display: block">
+    <h1><%= title %></h1>
+    <p>Feel Free to Upload Your New Report to the News Center!</p>
+
+    <form onsubmit="return false;">
+        <p><label for="name"> Author name: </label>
+            <input type="text" id="name" name="name">
+        </p>
+        <p>
+            <h3> Report Text: </h3>
+            <textarea type="text" id="text" name="text" style="width: 70%; height: 100px"></textarea>
+        </p>
+        <p style=" width: 100%"><label for="image_url"> Image (URL) </label><input type="text" id="image_url" name="image_url"></p>
+        <button id="connect" onclick="connectToRoom()">Submit</button>
+    </form>
+    <br>
+    <button onclick='location.href=("mainPage")'>Back to main Page</button>
+    <button onclick='location.href=("/")'>Back to Index</button>
+
+
+</div>
+</body>
+</html>

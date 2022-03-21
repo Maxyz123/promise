@@ -24,6 +24,9 @@
         <p style=" width: 100%"><label for="image_url"> Image (URL) </label><input type="text" id="image_url" name="image_url"></p>
         <button id="connect" onclick="connectToRoom()">Connect</button>
     </form>
+    <br>
+    <button onclick='location.href=("mainPage")'>Go to main Page</button>
+    <button onclick='location.href=("newReport")'>Go to Report News</button>
 </div>
 <div id="chat_interface" style="display: none">
     <div>
@@ -43,6 +46,9 @@
                 <label for="name"> chat: </label>
                 <input type="text" id="chat_input" name="chat_input" style="width: 80%">
                 <button id="chat_send" onclick="sendChatText()">Send</button>
+                <br>
+                <button onclick='location.href=("mainPage")'>Back to main Page</button>
+                <button onclick='location.href=("/")'>Back to Index</button>
             </p>
         </form>
     </div>
