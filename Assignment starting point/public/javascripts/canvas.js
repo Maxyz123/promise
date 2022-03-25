@@ -136,8 +136,8 @@ function drawImageScaled(img, canvas, ctx) {
  */
 function drawOnCanvas(ctx, canvasWidth, canvasHeight, prevX, prevY, currX, currY, color, thickness) {
     //get the ration between the current canvas and the one it has been used to draw on the other comuter
-    let ratioX= canvas.width/canvasWidth;
-    let ratioY= canvas.height/canvasHeight;
+    let ratioX= 1;
+    let ratioY= 1;
     // update the value of the points to draw
     prevX*=ratioX;
     prevY*=ratioY;
