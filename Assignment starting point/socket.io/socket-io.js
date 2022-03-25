@@ -17,12 +17,19 @@ exports.init = function(io) {
 
       socket.on('chat', function (room,userId,chatText){
         io.sockets.to(room).emit('chat',room,userId,chatText);
-      })
+      });
 
       socket.on('draw', function ( room, userId, width, height, prevX, prevY, currX, currY, color, thickness){
-
         io.sockets.to(room).emit('draw', room, userId, width,height, prevX, prevY, currX, currY, color, thickness)
-      })
+      });
+
+      socket.on('drawOnPanel', function ( room, userId, width, height, prevX, prevY, currX, currY, color, thickness){
+        io.sockets.to(room).emit('drawPanel', room, userId, width,height, prevX, prevY, currX, currY, color, thickness)
+      });
+
+      socket.on('Search',function (room,name,resultId,resultName,resultImg,resultDescription,resultUrl,resultPanel){
+        io.sockets.to(room).emit('searchPanel',room,name,resultId,resultName,resultImg,resultDescription,resultUrl,resultPanel)
+      });
 
       socket.on('disconnect',function (room, userId){
       console.log("Room: "+room+" User ID: "+userId+" has disconnected.")

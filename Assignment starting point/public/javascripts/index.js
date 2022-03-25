@@ -77,6 +77,19 @@ function initReportSocket(){
         writeOnHistory('<b>' + who + ':</b> ' + chatText);
     })
 
+    /**
+     *  Socket to sync the Searching Panel
+     * */
+    socket.on('searchPanel',function (room,name,resultId,resultName,resultImg,resultDescription,resultUrl,resultPanel){
+        document.getElementById('resultId').innerText= resultId;
+        document.getElementById('resultName').innerText= resultName;
+        //document.getElementById('resultImg').src=resultImg;
+        initResultCanvas(socket,resultImg);
+        document.getElementById('resultDescription').innerText= resultDescription;
+        document.getElementById("resultUrl").href= resultUrl;
+        document.getElementById('resultPanel').style.display= resultPanel;
+        writeOnHistory('<b>' + name + ':</b> ' + ' Has pushed a new searching result about '+'<b>'+resultName+'</b>'+' to the Panel');
+    });
 
 }
 
@@ -141,15 +154,27 @@ function widgetInit(){
  * callback called when an element in the widget is selected
  * @param event the Google Graph widget event {@link https://developers.google.com/knowledge-graph/how-tos/search-widget}
  */
-function selectItem(event){
+function selectItem_old(event){
     let row= event.row;
     // document.getElementById('resultImage').src= row.json.image.url;
     document.getElementById('resultId').innerText= 'id: '+row.id;
     document.getElementById('resultName').innerText= row.name;
+    document.getElementById('resultImg').src=row.json.image.contentUrl;
     document.getElementById('resultDescription').innerText= row.rc;
     document.getElementById("resultUrl").href= row.qc;
     document.getElementById('resultPanel').style.display= 'block';
 }
 
+function selectItem(event){
+    let row = event.row;
 
+    let resultId='id: '+row.id;
+    let resultName=row.name;
+    let resultImg=row.json.image.contentUrl;
+    let resultDescription=row.rc;
+    let resultUrl=row.qc;
+    let resultPanel='block';
+
+    socket.emit('Search',roomNo,name,resultId,resultName,resultImg,resultDescription,resultUrl,resultPanel)
+}
 
