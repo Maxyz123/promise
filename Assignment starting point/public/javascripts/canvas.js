@@ -27,7 +27,7 @@ function initCanvas(sckt, imageUrl) {
 
     //room=document.getElementById('roomNo').value;
     //userId=document.getElementById('name').value;
-    //initImage(room, userId);
+    //initImage(room, userId, img);
 
     // event on the canvas when the mouse is on it
     canvas.on('mousemove mousedown mouseup mouseout', function (e) {
@@ -73,9 +73,11 @@ function initCanvas(sckt, imageUrl) {
     img.addEventListener('load', () => {
         // it takes time before the image size is computed and made available
         // here we wait until the height is set, then we resize the canvas based on the size of the image
+
         let poll = setInterval(function () {
             if (img.naturalHeight) {
                 clearInterval(poll);
+                img.style.display='block';
                 // resize the canvas
                 let ratioX=1;
                 let ratioY=1;
@@ -91,9 +93,9 @@ function initCanvas(sckt, imageUrl) {
                 // draw the image onto the canvas
                 drawImageScaled(img, cvx, ctx);
                 // hide the image element as it is not needed
-                //img.style.display = 'none';
+                img.style.display = 'none';
             }
-        }, 10);
+        }, 100);
     });
 
 }
@@ -150,6 +152,8 @@ function drawOnCanvas(ctx, canvasWidth, canvasHeight, prevX, prevY, currX, currY
     ctx.closePath();
 }
 
+
+
 socket.on('draw',function (room, userId, width, height, prevX, prevY, currX, currY, color, thickness){
 
     let canvas = $('#canvas');
@@ -162,3 +166,5 @@ socket.on('draw',function (room, userId, width, height, prevX, prevY, currX, cur
 
     drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
 })
+
+
