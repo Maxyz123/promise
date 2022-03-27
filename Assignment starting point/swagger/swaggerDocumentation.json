@@ -1,0 +1,147 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "version": "4.0.0",
+    "title": "swagger",
+    "description": "the solution",
+    "termsOfService": "http://api_url/terms/",
+    "contact": {
+      "name": "COM3504/6504",
+      "email": "lliu79@sheffield.ac.uk",
+      "url": "http://shef.ac.uk"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/",
+      "description": "the only Local server"
+    }
+  ],
+  "paths": {
+    "/weather_data": {
+      "post": {
+        "tags": [
+          "getting weather data"
+        ],
+        "description": "getting weather data - currently it is generating random data",
+        "operationId": "weather data",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CityAndDate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Correct input of Child structure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherForecast"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "no location provided",
+                  "internal_code": "missing_parameters"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+      "schemas": {
+        "date": {
+          "type": "integer",
+          "description": "a date in milliseconds since epoch",
+          "example": 1203344005
+        },
+        "location": {
+          "type": "string",
+          "example": "Sheffield"
+        },
+        "forecast": {
+                          "type": "integer",
+                          "description": "a number 0-4 .. here we should put the values of r 0, 1, 2, 3, 4....",
+                          "example": 4
+                        },
+        "temperature": {
+                          "type": "integer",
+                          "description": "temperature in Celsiu degrees",
+                          "example": 14
+                        },
+        "wind": {
+                          "type": "integer",
+                          "description": "the wind force in nodes",
+                          "example": 15
+                        },
+        "precipitations": {
+                          "type": "integer",
+                          "description": "the precipitation probability",
+                          "example": 4
+                        },
+        "CityAndDate": {
+          "type": "object",
+          "properties": {
+            "location": {
+              "$ref": "#/components/schemas/location"
+            },
+            "date": {
+              "$ref": "#/components/schemas/date"
+            }
+          }
+        },
+        "WeatherForecast": {
+          "type": "object",
+          "properties": {
+            "location": {
+              "$ref": "#/components/schemas/location"
+            },
+            "forecast": {
+              "$ref": "#/components/schemas/forecast"
+            },
+            "temperature": {
+              "$ref": "#/components/schemas/temperature"
+            },
+            "wind": {
+                          "$ref": "#/components/schemas/wind"
+                        },
+            "precipitations": {
+                          "$ref": "#/components/schemas/precipitations"
+                        }
+          },
+          "example": "{location: London, date: 1616018089668,  forecast: 3,  temperature: -7,  wind: 4,  precipitations: 39}"
+        },
+        "Error": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "internal_code": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+}

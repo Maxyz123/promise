@@ -14,8 +14,13 @@
     <link rel='stylesheet' href='/stylesheets/style.css'/>
     <script src="/javascripts/index.js"></script>
     <script src="/javascripts/canvas.js"></script>
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/idb/index.js"  type="module"></script>
+    <script src="/javascripts/database.js" type="module"></script>
+    <script src="/javascripts/app.js"></script>
 </head>
-<body onload="init()">
+<body onload="init(),initStoryDatabase()">
+
 <div id="initial_form" style="display: block">
     <h1><%= title %></h1>
     <p>Please insert the id of the Room you want to Join, if you do not have a room id, click Generate Room</p>
@@ -29,7 +34,7 @@
             <button id="roomNoGenerator" onclick="generateRoom()">Generate Room</button>
         </p>
         <p style=" width: 100%"><label for="image_url"> Image (URL) </label><input type="text" id="image_url" name="image_url"></p>
-        <button id="connect" onclick="connectToRoom()">Connect</button>
+        <button id="connect" onclick="connectToRoom()"  >Connect</button>
     </form>
     <br>
     <button onclick='location.href=("mainPage")'>Go to main Page</button>
@@ -78,7 +83,7 @@
 
 
     <div id="input" style="height: 5vh" class=" boxed">
-        <form onsubmit="return false;" style="width: 100%">
+        <form onsubmit="return false" style="width: 100%">
             <p>
                 <label for="name"> chat: </label>
                 <input type="text" id="chat_input" name="chat_input" style="width: 80%">

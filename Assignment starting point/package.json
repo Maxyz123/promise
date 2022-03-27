@@ -13,6 +13,11 @@
     "http-errors": "~1.6.3",
     "mongoose": "^6.2.8",
     "morgan": "~1.9.1",
-    "socket.io": "^3.1.1"
+    "socket.io": "^3.1.1",
+    "idb": "5.0.8",
+    "fs-extra": "~5.0.0",
+    "serve-favicon": "~2.4.5",
+    "serve-static": "^1.13.2",
+    "swagger-ui-express": "^4.3.0"
   }
 }

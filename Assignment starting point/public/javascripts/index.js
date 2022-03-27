@@ -100,6 +100,11 @@ function initReportSocket(){
  */
 function writeOnHistory(text) {
     if (text==='') return;
+
+    storeTextData({text: text})
+        .then(response => console.log('inserting worked!!'))
+        .catch(error => console.log("error  inserting: "+ JSON.stringify(error)))
+
     let history = document.getElementById('history');
     let paragraph = document.createElement('p');
     paragraph.innerHTML = text;

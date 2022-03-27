@@ -15,6 +15,7 @@ function onSubmit(url) {
         data[formArray[index].name]= formArray[index].value;
     }
     sendAxiosQuery(url, data);
+
     event.preventDefault();
 }
 
