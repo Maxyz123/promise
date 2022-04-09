@@ -12,7 +12,7 @@ import * as idb from 'https://cdn.jsdelivr.net/npm/idb@7/+esm';
 
 let db;
 
-const STORY_DB_NAME= 'db_story';
+const STORY_DB_NAME= 'db';
 const STORY_STORE_NAME= 'store_story';
 /**const TEXT_DB_NAME= 'db_text';*/
 const TEXT_STORE_NAME= 'store_text';
@@ -37,14 +37,16 @@ async function initStoryDatabase(){
                         keyPath: 'id',
                         autoIncrement: true
                     });
-                    sumsDB.createIndex('text', 'text', {unique: false, multiEntry: true});
+                    sumsDB.createIndex('text',  'text',{unique: false, multiEntry: true});
+                    sumsDB.createIndex('userId',  'userId',{unique: false, multiEntry: true});
                 }
                 if (!upgradeDb.objectStoreNames.contains(DRAWN_STORE_NAME)) {
                     let sumsDB = upgradeDb.createObjectStore(DRAWN_STORE_NAME, {
                         keyPath: 'id',
                         autoIncrement: true
                     });
-                    sumsDB.createIndex('Drawn', 'userId', {unique: false, multiEntry: true});
+                    sumsDB.createIndex('Drawn', 'Drawn', {unique: false, multiEntry: true});
+                    sumsDB.createIndex('userId', 'userId', {unique: false, multiEntry: true})
                 }
             }
         });
@@ -69,9 +71,9 @@ window.initStoryDatabase= initStoryDatabase;
         console.log('db created');
     }
 }
-window.initTextDatabase= initTextDatabase;
+ window.initTextDatabase= initTextDatabase;
 
-async function initDrawnDatabase(){
+ async function initDrawnDatabase(){
     if (!db) {
         db = await idb.openDB(DRAWN_DB_NAME, 7, {
             upgrade(upgradeDb, oldVersion, newVersion) {
@@ -87,8 +89,8 @@ async function initDrawnDatabase(){
         console.log('db created');
     }
 }
-window.initDrawnDatabase= initDrawnDatabase;
-/**
+ window.initDrawnDatabase= initDrawnDatabase;
+ /**
  * it saves the sum into the database
  * if the database is not supported, it will use localstorage
  * @param sumObject: it contains  two numbers and their sum, e.g. {num1, num2, sum}
@@ -150,4 +152,84 @@ async function storeDrawnData(Object) {
     else localStorage.setItem(Object, JSON.stringify(Object));
 }
 window.storeDrawnData= storeDrawnData;
+
+async function cursorGetDataByIndex(indexValue) {
+    if (!db)
+        await (initStoryDatabase());
+    else {
+        try{
+            console.log("Starting Query...")
+            let tx = await db.transaction(TEXT_STORE_NAME,'readwrite');
+            let store = await tx.objectStore(TEXT_STORE_NAME);
+            let index = await store.index('userId');
+            let list = await index.getAll(IDBKeyRange.only(indexValue));
+            await tx.complete;
+            for (let l of list){
+                console.log(l.text)
+                writeOnHistory(l.text)
+            }
+
+        }
+        catch (error){
+            console.log("Querying text error!"+error);
+        }
+
+    }
+}
+window.cursorGetDataByIndex= cursorGetDataByIndex;
+
+async function GetDataByIndex(indexValue) {
+    if (!db)
+        await (initStoryDatabase());
+    else {
+        try{
+            console.log("Starting Query...")
+            let tx = await db.transaction(DRAWN_STORE_NAME,'readwrite');
+            let store = await tx.objectStore(DRAWN_STORE_NAME);
+            let index = await store.index('userId');
+            let list = await index.getAll(IDBKeyRange.only(indexValue));
+            await tx.complete;
+
+            let cvx = document.getElementById('canvas');
+            let ctx = cvx.getContext('2d');
+            for (let l of list){
+                console.log(ctx,l.width,l.height,l.prevX,l.prevY,l.currX,l.currY,l.color,l.thickness)
+                /*drawOnCanvas(l.ctx, l.Drawn,canvasWidth, canvasHeight, prevX, prevY, currX, currY, color, thickness))*/
+                drawOnCanvas(ctx,l.width,l.height,l.prevX,l.prevY,l.currX,l.currY,l.color,l.thickness)
+            }
+
+        }
+        catch (error){
+            console.log("Querying text error!"+error);
+        }
+
+    }
+}
+window.GetDataByIndex= GetDataByIndex;
+
+
+
+/*
+        let list = [];
+        let store = db.transaction(TEXT_STORE_NAME, "readwrite").objectStore(TEXT_STORE_NAME); // 仓库对象
+        let request = store
+            .index('userId') // 索引对象
+            .openCursor(IDBKeyRange.only(indexValue)); // 指针对象
+        request.onsuccess = function (e) {
+            let cursor = e.target.result;
+            if (cursor) {
+                // 必须要检查
+                list.push(cursor.value);
+                cursor.continue(); // 遍历了存储对象中的所有内容
+
+            } else {
+                console.log("游标索引查询结果：", list);
+
+            }
+
+ x
+
+        };
+
+ */
 

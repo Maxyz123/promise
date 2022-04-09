@@ -26,13 +26,13 @@ function submitForm(data){
 
     // and now it retrieves all the sums that have given the same result
 }
-function submitDrawnForm(data){
+ function submitDrawnForm(data){
     document.getElementById('results').innerHTML='';
     //let data= serialiseForm();
 
     // and now it retrieves all the sums that have given the same result
 }
-/**function serialiseHistoryForm() {
+ /**function serialiseHistoryForm() {
     let formArray = $("form").serializeArray();
     let data = {};
     for (let index in formArray) {

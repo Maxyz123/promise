@@ -167,7 +167,7 @@ socket.on('draw',function (room, userId, width, height, prevX, prevY, currX, cur
     drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
 
     //Store to IndexDB
-    storeDrawnData({room: room, userId: userId, width: width, height: height, prevX: prevX, prevY: prevY, currX: currX, currY: currY, color: color, thickness: thickness})
+    storeDrawnData({room: room, userId: userId,width: canvas.width, height: canvas.height, prevX: prevX, prevY: prevY, currX: currX, currY: currY, color: color, thickness: thickness})
         .then(response => console.log('inserting worked!!'))
         .catch(error => console.log("error  inserting: "+ JSON.stringify(error)))
 
