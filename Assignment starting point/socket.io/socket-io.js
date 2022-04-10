@@ -27,6 +27,10 @@ exports.init = function(io) {
         io.sockets.to(room).emit('drawPanel', room, userId, width,height, prevX, prevY, currX, currY, color, thickness)
       });
 
+      socket.on('clearCanvas',function (room, userId){
+        io.sockets.to(room).emit('clearCanvas',room,userId);
+      });
+
       socket.on('Search',function (room,name,resultId,resultName,resultImg,resultDescription,resultUrl,resultPanel){
         io.sockets.to(room).emit('searchPanel',room,name,resultId,resultName,resultImg,resultDescription,resultUrl,resultPanel)
       });

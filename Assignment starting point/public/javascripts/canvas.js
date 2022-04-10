@@ -23,13 +23,7 @@ function initCanvas(sckt, imageUrl) {
     let ctx = cvx.getContext('2d');
     img.src = imageUrl;
 
-    //initDrawingSocket()
 
-    //room=document.getElementById('roomNo').value;
-    //userId=document.getElementById('name').value;
-    //initImage(room, userId, img);
-
-    // event on the canvas when the mouse is on it
     canvas.on('mousemove mousedown mouseup mouseout', function (e) {
         prevX = currX;
         prevY = currY;
@@ -44,32 +38,19 @@ function initCanvas(sckt, imageUrl) {
         // if the flag is up, the movement of the mouse draws on the canvas
         if (e.type === 'mousemove') {
             if (flag) {
-                //drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
-                // @todo if you draw on the canvas, you may want to let everyone know via socket.io (socket.emit...)  by sending them
-                // room, userId, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness
+
                 socket.emit('draw', room, userId, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness)
 
             }
         }
     });
 
-    // this is code left in case you need to  provide a button clearing the canvas (it is suggested that you implement it)
-    $('.canvas-clear').on('click', function (e) {
-        let c_width = canvas.width();
-        let c_height = canvas.height();
-        ctx.clearRect(0, 0, c_width, c_height);
-        // @todo if you clear the canvas, you want to let everyone know via socket.io (socket.emit...)
 
+    $('.canvas-clear').on('click', function (e) {
+        socket.emit('clearCanvas', room, userId);
     });
 
-    // @todo here you want to capture the event on the socket when someone else is drawing on their canvas (socket.on...)
-    // I suggest that you receive userId, canvasWidth, canvasHeight, x1, y21, x2, y2, color, thickness
-    // and then you call
-    //     let ctx = canvas[0].getContext('2d');
-    //     drawOnCanvas(ctx, canvasWidth, canvasHeight, x1, y21, x2, y2, color, thickness)
 
-    // this is called when the src of the image is loaded
-    // this is an async operation as it may take time
     img.addEventListener('load', () => {
         // it takes time before the image size is computed and made available
         // here we wait until the height is set, then we resize the canvas based on the size of the image
@@ -171,7 +152,7 @@ socket.on('draw',function (room, userId, width, height, prevX, prevY, currX, cur
         .then(response => console.log('inserting worked!!'))
         .catch(error => console.log("error  inserting: "+ JSON.stringify(error)))
 
-})
+});
 
 socket.on('drawPanel',function (room, userId, width, height, prevX, prevY, currX, currY, color, thickness){
 
@@ -185,7 +166,21 @@ socket.on('drawPanel',function (room, userId, width, height, prevX, prevY, currX
     canvas.height=height;
 
     drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
-})
+});
+
+socket.on('clearCanvas',function (room, userId){
+
+    let canvas = $('#canvas');
+    let cvx = document.getElementById('canvas');
+    let ctx = cvx.getContext('2d');
+    let c_width = canvas.width();
+    let c_height = canvas.height();
+    console.log(c_width,c_height)
+    ctx.clearRect(0, 0, c_width, c_height);
+
+    writeOnHistory('<b>' + userId + '</b> '+' Deleted the Picture!');
+
+});
 
 
 
@@ -204,13 +199,7 @@ function initResultCanvas(sckt, imageUrl) {
     let ctx = cvx.getContext('2d');
     img.src = imageUrl;
 
-    //initDrawingSocket()
 
-    //room=document.getElementById('roomNo').value;
-    //userId=document.getElementById('name').value;
-    //initImage(room, userId, img);
-
-    // event on the canvas when the mouse is on it
     canvas.on('mousemove mousedown mouseup mouseout', function (e) {
 
         prevX = currX;
@@ -227,9 +216,7 @@ function initResultCanvas(sckt, imageUrl) {
         // if the flag is up, the movement of the mouse draws on the canvas
         if (e.type === 'mousemove') {
             if (flag) {
-                //drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
-                // @todo if you draw on the canvas, you may want to let everyone know via socket.io (socket.emit...)  by sending them
-                // room, userId, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness
+
                 socket.emit('drawOnPanel', room, userId, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness)
 
             }
@@ -241,18 +228,11 @@ function initResultCanvas(sckt, imageUrl) {
         let c_width = canvas.width();
         let c_height = canvas.height();
         ctx.clearRect(0, 0, c_width, c_height);
-        // @todo if you clear the canvas, you want to let everyone know via socket.io (socket.emit...)
+
 
     });
 
-    // @todo here you want to capture the event on the socket when someone else is drawing on their canvas (socket.on...)
-    // I suggest that you receive userId, canvasWidth, canvasHeight, x1, y21, x2, y2, color, thickness
-    // and then you call
-    //     let ctx = canvas[0].getContext('2d');
-    //     drawOnCanvas(ctx, canvasWidth, canvasHeight, x1, y21, x2, y2, color, thickness)
 
-    // this is called when the src of the image is loaded
-    // this is an async operation as it may take time
     img.addEventListener('load', () => {
         // it takes time before the image size is computed and made available
         // here we wait until the height is set, then we resize the canvas based on the size of the image
