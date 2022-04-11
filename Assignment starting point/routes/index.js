@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 var story = require('../controllers/stories');
-const {json} = require("express");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

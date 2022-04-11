@@ -1,5 +1,4 @@
 let Story = require('../models/stories');
-const {exists} = require("fs-extra/lib/fs");
 
 exports.insert = function (req, res) {
     let userData = req.body;
