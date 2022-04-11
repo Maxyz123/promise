@@ -1,14 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <link rel='stylesheet' href='/stylesheets/inline.css'/>
+    <link rel="stylesheet" href="/stylesheets/bootstrap_css/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/newReport.js"></script>
+    <script src="/javascripts/idb/index.js"  type="module"></script>
+    <script src="/javascripts/database.js" type="module"></script>
+    <script src="/javascripts/app.js"></script>
 </head>
 <body>
 <div style="display: block">
     <h1><%= title %></h1>
     <p>Welcome to the News Reports Center!</p>
+
+    <form id=“xForm" onsubmit="onSubmit('/mainPage')">
+        <p><input type="submit" name="data" value="Get News" id="data"></p>
+    </form>
+    <div id="results"></div>
 
     <div id="reportingBlock">
         <h2 id="imageTitle"></h2>

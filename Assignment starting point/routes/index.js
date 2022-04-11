@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var story = require('../controllers/stories');
+const {json} = require("express");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -12,7 +13,9 @@ router.get('/', function(req, res, next) {
 router.route('/mainPage')
     .get(function (req,res){
       res.render('mainPage',{title: "News Center"});
-    });
+    })
+    .post(story.getData);
+
 
 //New Report
 router.route('/newReport')

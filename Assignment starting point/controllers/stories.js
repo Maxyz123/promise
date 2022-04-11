@@ -1,4 +1,5 @@
 let Story = require('../models/stories');
+const {exists} = require("fs-extra/lib/fs");
 
 exports.insert = function (req, res) {
     let userData = req.body;
@@ -21,4 +22,20 @@ exports.insert = function (req, res) {
         .catch ((error) => {
             res.status(500).json('Could not insert - probably incorrect data! ' + JSON.stringify(error));
         })
+}
+
+exports.getData = function (req, res){
+    let userData = req.body;
+    if (userData == null)
+        res.status(403).json('No data sent!')
+
+    Story.find({},
+        'author_name report_text image_url date')
+        .then(stories =>{
+            res.json(stories);
+        })
+        .catch((err) => {
+            res.status(500).send('Invalid data or not found!' + JSON.stringify(err));
+        });
+
 }
