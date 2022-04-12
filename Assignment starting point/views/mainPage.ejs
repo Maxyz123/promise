@@ -13,23 +13,17 @@
     <script src="/javascripts/database.js" type="module"></script>
     <script src="/javascripts/app.js"></script>
 </head>
-<body>
+<body style="overflow: scroll">
 <div style="display: block">
     <h1><%= title %></h1>
     <p>Welcome to the News Reports Center!</p>
+    <p>You can click an interested title or picture to start your Chat Room!</p>
 
     <form id=“xForm" onsubmit="onSubmit('/mainPage')">
         <p><input type="submit" name="data" value="Get News" id="data"></p>
     </form>
-    <div id="results"></div>
-
-    <div id="reportingBlock">
-        <h2 id="imageTitle"></h2>
-        <div id="picture"  style="width: 100%; height: 50vh">
-            <img id="image" height="100%" >
-        </div>
-        <p id="text"></p>
-    </div>
+    <br>
+    <div id="dashBoard" style="height: 80vh" class="boxed dashBoard" ></div>
     <br>
     <button onclick='location.href=("/")'>Back to Index</button>
     <button onclick='location.href=("newReport")'>Go to Report News</button>

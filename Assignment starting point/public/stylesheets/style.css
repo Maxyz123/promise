@@ -19,6 +19,10 @@ a {
     overflow: scroll;
     max-height: 40vh;
 }
+.dashBoard{
+    overflow: scroll;
+    max-height: 100vh;
+}
 .outsideWrapper{
     width:256px; height:256px;
     margin:20px 60px;
