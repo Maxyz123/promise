@@ -8,6 +8,7 @@ exports.insert = function (req, res) {
 
     let story = new Story({
         author_name: userData.name,
+        report_title: userData.title,
         report_text: userData.text,
         image_url: userData.image_url
     });
@@ -29,7 +30,7 @@ exports.getData = function (req, res){
         res.status(403).json('No data sent!')
 
     Story.find({},
-        'author_name report_text image_url date')
+        'author_name report_title report_text image_url date')
         .then(stories =>{
             res.json(stories);
         })

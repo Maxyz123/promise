@@ -5,6 +5,8 @@ function sendAxiosQuery(url, data) {
             for (i in dataArr){
                 document.getElementById('results').innerHTML += dataArr[i]["author_name"];
                 document.getElementById('results').innerHTML += ", ";
+                document.getElementById('results').innerHTML += dataArr[i]["report_title"];
+                document.getElementById('results').innerHTML += ", ";
                 document.getElementById('results').innerHTML += dataArr[i]["report_text"];
                 document.getElementById('results').innerHTML += ", ";
                 document.getElementById('results').innerHTML += dataArr[i]["image_url"];
