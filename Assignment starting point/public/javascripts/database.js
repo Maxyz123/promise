@@ -18,6 +18,7 @@ const STORY_STORE_NAME= 'store_story';
 const TEXT_STORE_NAME= 'store_text';
 /**const DRAWN_DB_NAME= 'db_drawn';*/
 const DRAWN_STORE_NAME= 'store_drawn';
+const GRAPH_STORE_NAME= 'store_graph';
 /**
  * it inits the database and creates an index for the sum field
  */
@@ -37,7 +38,7 @@ async function initStoryDatabase(){
                         keyPath: 'id',
                         autoIncrement: true
                     });
-                    sumsDB.createIndex('text',  'text',{unique: false, multiEntry: true});
+                    /*sumsDB.createIndex('text',  'text',{unique: false, multiEntry: true});*/
                     sumsDB.createIndex('userId',  'userId',{unique: false, multiEntry: true});
                 }
                 if (!upgradeDb.objectStoreNames.contains(DRAWN_STORE_NAME)) {
@@ -45,8 +46,15 @@ async function initStoryDatabase(){
                         keyPath: 'id',
                         autoIncrement: true
                     });
-                    sumsDB.createIndex('Drawn', 'Drawn', {unique: false, multiEntry: true});
+                    /*sumsDB.createIndex('Drawn', 'Drawn', {unique: false, multiEntry: true});*/
                     sumsDB.createIndex('userId', 'userId', {unique: false, multiEntry: true})
+                }
+                if (!upgradeDb.objectStoreNames.contains(GRAPH_STORE_NAME)) {
+                    let sumsDB = upgradeDb.createObjectStore(GRAPH_STORE_NAME, {
+                        keyPath: 'id',
+                        autoIncrement: true
+                    });
+                    sumsDB.createIndex('resultId', 'resultId', {unique: false, multiEntry: true})
                 }
             }
         });
@@ -116,6 +124,26 @@ window.storeStoryData= storeStoryData;
 
 
 async function storeTextData(Object) {
+    console.log('inserting: '+JSON.stringify(Object));
+    if (!db)
+        await (initStoryDatabase());
+    if (db) {
+        try{
+            let tx = await db.transaction(GRAPH_STORE_NAME, 'readwrite');
+            let store = await tx.objectStore(GRAPH_STORE_NAME);
+            await store.put(Object);
+            await  tx.complete;
+            console.log('added item to the store! '+ JSON.stringify(Object));
+        } catch(error) {
+            console.log('error: I could not store the element. Reason: '+error);
+        }
+    }
+    else localStorage.setItem(Object, JSON.stringify(Object));
+}
+window.storeGraphData= storeGraphData;
+
+
+async function storeGraphData(Object) {
     console.log('inserting: '+JSON.stringify(Object));
     if (!db)
         await (initStoryDatabase());

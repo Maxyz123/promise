@@ -104,6 +104,12 @@ function initReportSocket(){
         document.getElementById("resultUrl").href= resultUrl;
         document.getElementById('resultPanel').style.display= resultPanel;
         writeOnHistory('<b>' + name + ':</b> ' + ' Has pushed a new searching result about '+'<b>'+resultName+'</b>'+' to the Panel');
+        storeGraphData({resultId:  resultId, resultName: resultName,resultDescription: resultDescription,resultUrl: resultUrl,resultPanel: resultPanel})
+            .then(response => console.log('inserting worked!!'))
+            .catch(error => console.log("error  inserting: "+ JSON.stringify(error)))
+
+
+
     });
 
 }
