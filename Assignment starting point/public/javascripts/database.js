@@ -123,7 +123,7 @@ async function storeStoryData(Object) {
 window.storeStoryData= storeStoryData;
 
 
-async function storeTextData(Object) {
+async function storeGraphData(Object) {
     console.log('inserting: '+JSON.stringify(Object));
     if (!db)
         await (initStoryDatabase());
@@ -143,7 +143,7 @@ async function storeTextData(Object) {
 window.storeGraphData= storeGraphData;
 
 
-async function storeGraphData(Object) {
+async function storeTextData(Object) {
     console.log('inserting: '+JSON.stringify(Object));
     if (!db)
         await (initStoryDatabase());
