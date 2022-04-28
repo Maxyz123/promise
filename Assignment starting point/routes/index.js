@@ -5,15 +5,16 @@ var story = require('../controllers/stories');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Image Browsing', image: ''});
+  res.render('index', { title: 'Image Browsing', image: '', text: ''});
 });
 
 router.route('/index')
     .get(function (req,res){
-        res.render('index',{title: 'Image Browsing', image: ''});
+        res.render('index',{title: 'Image Browsing', image: '', text: ''});
     })
     .post(function (req,res){
-        res.render('index',{title: 'Start your new Chat Room!', image: req.body.imageUrl});
+        console.log(req.body.textArea);
+        res.render('index',{title: 'Start your new Chat Room!', image: req.body.imageUrl, text: req.body.textArea});
     });
 
 //Main Page

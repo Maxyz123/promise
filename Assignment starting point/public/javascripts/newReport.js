@@ -34,10 +34,15 @@ function sendAxiosQuery(url, data) {
                         temp.method='post'
                         temp.style.display='none'
 
+                        var textArea = document.createElement("textArea");
+                        textArea.name="textArea";
+                        textArea.value=text;
+
                         var img = document.createElement("textarea");
                         img.name="imageUrl";
                         img.value=imgUrl;
-                        temp.appendChild(img)
+                        temp.appendChild(img);
+                        temp.appendChild(textArea);
                         $("body").append(temp);
                         temp.submit();
                     };
@@ -46,10 +51,16 @@ function sendAxiosQuery(url, data) {
                         temp.action='/index'
                         temp.method='post'
                         temp.style.display='none'
+
+                        var textArea = document.createElement("textArea");
+                        textArea.name="textArea";
+                        textArea.value=text;
+
                         var img = document.createElement("textarea");
                         img.name="imageUrl";
                         img.value=imgUrl;
-                        temp.appendChild(img)
+                        temp.appendChild(img);
+                        temp.appendChild(textArea);
                         $("body").append(temp);
                         temp.submit();
                     };
