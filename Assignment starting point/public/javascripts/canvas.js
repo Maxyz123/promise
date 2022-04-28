@@ -3,6 +3,7 @@
  */
 let room;
 let userId;
+let imgURL
 let color = 'red', thickness = 4;
 
 /**
@@ -11,10 +12,11 @@ let color = 'red', thickness = 4;
  * @param sckt the open socket to register events on
  * @param imageUrl teh image url to download
  */
-function initCanvas(sckt, imageUrl) {
+function initCanvas(sckt, imageUrl, id) {
     socket = sckt;
     room=document.getElementById('roomNo').value;
-    userId=document.getElementById('name').value
+    userId=document.getElementById('name').value;
+    imgURL=imageUrl;
     let flag = false,
         prevX, prevY, currX, currY = 0;
     let canvas = $('#canvas');
@@ -39,7 +41,7 @@ function initCanvas(sckt, imageUrl) {
         if (e.type === 'mousemove') {
             if (flag) {
 
-                socket.emit('draw', room, userId, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness)
+                socket.emit('draw', room, userId, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness, imageUrl)
 
             }
         }
@@ -72,7 +74,16 @@ function initCanvas(sckt, imageUrl) {
                 cvx.width = canvas.width = img.clientWidth*ratio;
                 cvx.height = canvas.height = img.clientHeight*ratio;
                 // draw the image onto the canvas
-                drawImageScaled(img, cvx, ctx);
+
+                if (id===userId){
+                    drawImageScaled(img, cvx, ctx);
+                    GetDataByIndex(userId, imgURL)
+                        .then(response => console.log('inserting worked!!'))
+                        .catch(error => console.log("error  inserting: "+ JSON.stringify(error)))
+                }
+                else {
+                    drawImageScaled(img, cvx, ctx);
+                }
                 // hide the image element as it is not needed
                 img.style.display = 'none';
             }
@@ -135,7 +146,7 @@ function drawOnCanvas(ctx, canvasWidth, canvasHeight, prevX, prevY, currX, currY
 
 
 
-socket.on('draw',function (room, userId, width, height, prevX, prevY, currX, currY, color, thickness){
+socket.on('draw',function (room, userId, width, height, prevX, prevY, currX, currY, color, thickness, imgUrl){
 
     let canvas = $('#canvas');
     let cvx = document.getElementById('canvas');
@@ -148,7 +159,7 @@ socket.on('draw',function (room, userId, width, height, prevX, prevY, currX, cur
     drawOnCanvas(ctx, canvas.width, canvas.height, prevX, prevY, currX, currY, color, thickness);
 
     //Store to IndexDB
-    storeDrawnData({room: room, userId: userId,width: canvas.width, height: canvas.height, prevX: prevX, prevY: prevY, currX: currX, currY: currY, color: color, thickness: thickness})
+    storeDrawnData({room: room, userId: userId,width: canvas.width, height: canvas.height, prevX: prevX, prevY: prevY, currX: currX, currY: currY, color: color, thickness: thickness, imgUrl: imgUrl})
         .then(response => console.log('inserting worked!!'))
         .catch(error => console.log("error  inserting: "+ JSON.stringify(error)))
 

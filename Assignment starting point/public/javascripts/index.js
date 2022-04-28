@@ -58,25 +58,22 @@ function connectToRoom() {
 
 function initReportSocket(){
     socket.on('joined',function (room, userId, imageURL){
+
         if (userId===name){
             hideLoginInterface(room,userId);
-
             cursorGetDataByIndex(userId)
                 .then(response => console.log('inserting worked!!'))
                 .catch(error => console.log("error  inserting: "+ JSON.stringify(error)))
-            GetDataByIndex(userId)
-                .then(response => console.log('inserting worked!!'))
-                .catch(error => console.log("error  inserting: "+ JSON.stringify(error)))
+
         }
         else{
             writeOnHistory('<b>' + userId + '</b>' + ' joined room ' + room);
-
         }
 
         let imageTitle="Report " + 'by ' + '<b>' + userId + '</b>' + ' on ' + (new Date().toLocaleDateString())+'<br>';
         document.getElementById('imageTitle').innerHTML=imageTitle;
 
-        initCanvas(socket, imageURL);
+        initCanvas(socket, imageURL, userId);
 
     });
 

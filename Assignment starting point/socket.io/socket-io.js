@@ -19,8 +19,8 @@ exports.init = function(io) {
         io.sockets.to(room).emit('chat',room,userId,chatText);
       });
 
-      socket.on('draw', function ( room, userId, width, height, prevX, prevY, currX, currY, color, thickness){
-        io.sockets.to(room).emit('draw', room, userId, width,height, prevX, prevY, currX, currY, color, thickness)
+      socket.on('draw', function ( room, userId, width, height, prevX, prevY, currX, currY, color, thickness, imgUrl){
+        io.sockets.to(room).emit('draw', room, userId, width,height, prevX, prevY, currX, currY, color, thickness, imgUrl)
       });
 
       socket.on('drawOnPanel', function ( room, userId, width, height, prevX, prevY, currX, currY, color, thickness){

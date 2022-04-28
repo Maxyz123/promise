@@ -33,6 +33,7 @@ function sendAxiosQuery(url, data) {
                         temp.action='/index'
                         temp.method='post'
                         temp.style.display='none'
+
                         var img = document.createElement("textarea");
                         img.name="imageUrl";
                         img.value=imgUrl;

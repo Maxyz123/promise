@@ -206,7 +206,7 @@ async function cursorGetDataByIndex(indexValue) {
 }
 window.cursorGetDataByIndex= cursorGetDataByIndex;
 
-async function GetDataByIndex(indexValue) {
+async function GetDataByIndex(indexValue, imgUrl) {
     if (!db)
         await (initStoryDatabase());
     else {
@@ -221,9 +221,12 @@ async function GetDataByIndex(indexValue) {
             let cvx = document.getElementById('canvas');
             let ctx = cvx.getContext('2d');
             for (let l of list){
-                console.log(ctx,l.width,l.height,l.prevX,l.prevY,l.currX,l.currY,l.color,l.thickness)
+                console.log(ctx,l.width,l.height,l.prevX,l.prevY,l.currX,l.currY,l.color,l.thickness, l.imgUrl)
                 /*drawOnCanvas(l.ctx, l.Drawn,canvasWidth, canvasHeight, prevX, prevY, currX, currY, color, thickness))*/
-                drawOnCanvas(ctx,l.width,l.height,l.prevX,l.prevY,l.currX,l.currY,l.color,l.thickness)
+                if (imgUrl===l.imgUrl){
+                    drawOnCanvas(ctx,l.width,l.height,l.prevX,l.prevY,l.currX,l.currY,l.color,l.thickness)
+                }
+
             }
 
         }
