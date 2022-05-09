@@ -22,18 +22,18 @@
     }
   ],
   "paths": {
-    "/weather_data": {
+    "/stories": {
       "post": {
         "tags": [
-          "getting weather data"
+          "Create Stories"
         ],
-        "description": "getting weather data - currently it is generating random data",
-        "operationId": "weather data",
+        "description": "Create Stories",
+        "operationId": "Create Stories",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CityAndDate"
+                "$ref": "#/components/schemas/Stories"
               }
             }
           },
@@ -41,11 +41,11 @@
         },
         "responses": {
           "200": {
-            "description": "Correct input of Child structure",
+            "description": "New stories were created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/WeatherForecast"
+                  "$ref": "#/components/schemas/CreatedStories"
                 }
               }
             }
@@ -58,7 +58,7 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "message": "no location provided",
+                  "message": "no report title provided",
                   "internal_code": "missing_parameters"
                 }
               }
@@ -68,68 +68,95 @@
       }
     }
   },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   "components": {
       "schemas": {
-        "date": {
-          "type": "integer",
-          "description": "a date in milliseconds since epoch",
-          "example": 1203344005
-        },
-        "location": {
+        "author_name": {
           "type": "string",
-          "example": "Sheffield"
+          "description": "people who posted the story",
+          "example": "Leo"
         },
-        "forecast": {
-                          "type": "integer",
-                          "description": "a number 0-4 .. here we should put the values of r 0, 1, 2, 3, 4....",
-                          "example": 4
+        "report_title": {
+          "type": "string",
+          "example": "STORY"
+        },
+        "report_text": {
+                          "type": "string",
+                          "description": "the content of the story",
+                          "example": "This is a story"
                         },
-        "temperature": {
-                          "type": "integer",
-                          "description": "temperature in Celsiu degrees",
-                          "example": 14
+        "image_url": {
+                          "type": "string",
+                          "description": "link to image",
+                          "example": "./images/cathedral.jpg"
                         },
-        "wind": {
-                          "type": "integer",
-                          "description": "the wind force in nodes",
-                          "example": 15
-                        },
-        "precipitations": {
-                          "type": "integer",
-                          "description": "the precipitation probability",
-                          "example": 4
-                        },
-        "CityAndDate": {
+
+        "Stories": {
           "type": "object",
           "properties": {
-            "location": {
-              "$ref": "#/components/schemas/location"
+            "author_name": {
+              "$ref": "#/components/schemas/author_name"
             },
-            "date": {
-              "$ref": "#/components/schemas/date"
+            "report_title": {
+              "$ref": "#/components/schemas/report_title"
             }
           }
         },
-        "WeatherForecast": {
+        "CreatedStories": {
           "type": "object",
           "properties": {
-            "location": {
-              "$ref": "#/components/schemas/location"
+            "author_name": {
+              "$ref": "#/components/schemas/author_name"
             },
-            "forecast": {
-              "$ref": "#/components/schemas/forecast"
+            "report_title": {
+              "$ref": "#/components/schemas/report_title"
             },
-            "temperature": {
-              "$ref": "#/components/schemas/temperature"
+            "report_text": {
+              "$ref": "#/components/schemas/report_text"
             },
-            "wind": {
-                          "$ref": "#/components/schemas/wind"
-                        },
-            "precipitations": {
-                          "$ref": "#/components/schemas/precipitations"
+            "image_url": {
+                          "$ref": "#/components/schemas/image_url"
                         }
           },
-          "example": "{location: London, date: 1616018089668,  forecast: 3,  temperature: -7,  wind: 4,  precipitations: 39}"
+          "example": "{author_name: Leo, report_title: STORY,  report_text: This is a story,  image_url: ./images/cathedral.jpg}"
         },
         "Error": {
           "type": "object",
