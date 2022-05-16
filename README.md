@@ -42,6 +42,13 @@ Make sure you have installed mongodb and already have it run.
 mongod
 ```
 
+### Data Resource
+Images are stored in "Assignment starting point/public/images", fill in the Image (URL) to upload a news report.
+
+Images URL:
+	1. cathedral.jpg URL: "./images/cathedral.jpg"
+	2. test.png URL: "./images/test.png"
+
 ### Description
 
 Our project is base on express Node.js, using mongodb as database, connecting with mongoose.
