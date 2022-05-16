@@ -67,11 +67,102 @@
         }
       }
     }
-  },
+  ,
 
 
+    "/chat_text": {
+      "post": {
+        "tags": [
+          "Store Chat Text"
+        ],
+        "description": "Store chat text",
+        "operationId": "Store chat text",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/chat"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Store chat text success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/chat_text"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "no userId provided",
+                  "internal_code": "missing_parameters"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
 
+    "/graph_data": {
+      "post": {
+        "tags": [
+          "Store Graph Data"
+        ],
+        "description": "Store graph data",
+        "operationId": "Store graph data",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/graph"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Store graph data success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/graph_data"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "no resultName provided",
+                  "internal_code": "missing_parameters"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    },
 
 
 
@@ -129,6 +220,55 @@
                           "example": "./images/cathedral.jpg"
                         },
 
+        "userId": {
+          "type": "string",
+          "description": "who sent this chat",
+          "example": "Leo"
+        },
+
+        "resultId": {
+          "type": "string",
+          "description": "Id",
+          "example": "id: /m/01jz6d"
+        },
+        "resultName": {
+          "type": "string",
+          "description": "Name",
+          "example": "LeBron James"
+        },
+        "resultDescription": {
+          "type": "string",
+          "description": "Description",
+          "example": "LeBron Raymone James Sr. is an American professional basketball player for the Los Angeles Lakers of the National Basketball Association."
+        },
+        "resultUrl": {
+          "type": "string",
+          "description": "Url",
+          "example": "https://en.wikipedia.org/wiki/LeBron_James"
+        },
+        "resultPanel": {
+          "type": "string",
+          "description": "resultPanel",
+          "example": "block"
+        },
+
+
+        "text": {
+          "type": "string",
+          "description": "Chat content",
+          "example": "Hello"
+        },
+        "text": {
+          "type": "string",
+          "description": "Chat content",
+          "example": "Hello"
+        },
+        "text": {
+          "type": "string",
+          "description": "Chat content",
+          "example": "Hello"
+        },
+
         "Stories": {
           "type": "object",
           "properties": {
@@ -140,6 +280,46 @@
             }
           }
         },
+
+
+        "graph": {
+          "type": "object",
+          "properties": {
+            "resultId": {
+              "$ref": "#/components/schemas/resultId"
+            },
+            "resultUrl": {
+              "$ref": "#/components/schemas/resultUrl"
+            }
+          }
+        },
+
+
+        "chat": {
+          "type": "object",
+          "properties": {
+            "author_name": {
+              "$ref": "#/components/schemas/userId"
+            },
+            "report_title": {
+              "$ref": "#/components/schemas/text"
+            }
+          }
+        },
+
+        "chat_text": {
+          "type": "object",
+          "properties": {
+            "author_name": {
+              "$ref": "#/components/schemas/userId"
+            },
+            "report_title": {
+              "$ref": "#/components/schemas/text"
+            }
+          },
+          "example": "{userId: Leo, text: Hello}"
+        },
+
         "CreatedStories": {
           "type": "object",
           "properties": {
@@ -157,6 +337,28 @@
                         }
           },
           "example": "{author_name: Leo, report_title: STORY,  report_text: This is a story,  image_url: ./images/cathedral.jpg}"
+        },
+
+        "graph_data": {
+          "type": "object",
+          "properties": {
+            "resultId": {
+              "$ref": "#/components/schemas/resultId"
+            },
+            "resultName": {
+              "$ref": "#/components/schemas/resultName"
+            },
+            "resultDescription": {
+              "$ref": "#/components/schemas/resultDescription"
+            },
+            "resultUrl": {
+              "$ref": "#/components/schemas/resultUrl"
+            },
+            "resultPanel": {
+              "$ref": "#/components/schemas/resultPanel"
+            }
+          },
+          "example": "{resultId: id: /m/01jz6d, resultName: LeBron James,  resultDescription: LeBron Raymone James Sr. is an American professional basketball player for the Los Angeles Lakers of the National Basketball Association.,  resultUrl: https://en.wikipedia.org/wiki/LeBron_James, resultPanel: block}"
         },
         "Error": {
           "type": "object",
