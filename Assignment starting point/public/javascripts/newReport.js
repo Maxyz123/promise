@@ -20,7 +20,9 @@ function sendAxiosQuery(url, data) {
                     let text = dataArr[i]["report_text"];
                     let imgUrl = dataArr[i]["image_url"]
                     let id = dataArr[i]["_id"];
+
                     let dashBoard = document.getElementById('dashBoard');
+
 
                     let paragraphTitle = document.createElement('h3');
                     let paragraphText = document.createElement('p');
@@ -28,21 +30,25 @@ function sendAxiosQuery(url, data) {
                     paragraphTitle.innerHTML = '<br>'+title+'<br>';
                     paragraphText.innerHTML = text+'<br>';
                     paragraphImg.src = imgUrl;
+
                     paragraphTitle.onclick=function (){
+
                         var temp =document.createElement("form");
                         temp.action='/index'
                         temp.method='post'
                         temp.style.display='none'
 
-                        var textArea = document.createElement("textArea");
-                        textArea.name="textArea";
-                        textArea.value=text;
 
-                        var img = document.createElement("textarea");
-                        img.name="imageUrl";
-                        img.value=imgUrl;
-                        temp.appendChild(img);
+                        var textArea = document.createElement("textArea");
+                        textArea.name="NewsId";
+                        textArea.value=imgUrl;
+
+                        var ReportText = document.createElement("textarea");
+                        ReportText.name="ReportText";
+                        ReportText.value=text;
+
                         temp.appendChild(textArea);
+                        temp.appendChild(ReportText);
                         $("body").append(temp);
                         temp.submit();
                     };
@@ -53,14 +59,15 @@ function sendAxiosQuery(url, data) {
                         temp.style.display='none'
 
                         var textArea = document.createElement("textArea");
-                        textArea.name="textArea";
-                        textArea.value=text;
+                        textArea.name="NewsId";
+                        textArea.value=imgUrl;
 
-                        var img = document.createElement("textarea");
-                        img.name="imageUrl";
-                        img.value=imgUrl;
-                        temp.appendChild(img);
+                        var ReportText = document.createElement("textArea");
+                        ReportText.name="ReportText";
+                        ReportText.value=text;
+
                         temp.appendChild(textArea);
+                        temp.appendChild(ReportText);
                         $("body").append(temp);
                         temp.submit();
                     };

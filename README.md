@@ -42,16 +42,13 @@ Make sure you have installed mongodb and already have it run.
 mongod
 ```
 
-### Data Resource
-Images are stored in "Assignment starting point/public/images", fill in the Image (URL) to upload a news report.
 
-Images URL:
-	1. cathedral.jpg URL: "./images/cathedral.jpg"
-	2. test.png URL: "./images/test.png"
 
 ### Description
 
 Our project is base on express Node.js, using mongodb as database, connecting with mongoose.
+Data resource stored in MongoDB database, images are transformed to base 64.
+Users can view their history which is stored in IndexedDB, When people rejoin the same room the data will be shown.
 
 ## Features
 1.	Standard main page to show all news reports dynamically in MongoDB database.

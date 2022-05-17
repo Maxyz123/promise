@@ -28,7 +28,23 @@
         <p>
             <h3> Report Text: </h3>
         <label for="text"></label><textarea type="text" id="text" name="text" style="width: 70%; height: 100px"></textarea>
-        <p style=" width: 100%"><label for="image_url"> Image (URL) </label><input type="text" id="image_url" name="image_url"></p>
+        <p style=" width: 100%">
+            <label for="image_url"> Image (URL) </label>
+            <input type="file" id="img" name="img">
+            <input type="text" id="image_url" name="image_url" style="display: none">
+            <script>
+                let img = null
+                document.querySelector('#img').onchange = function (e) {
+                    const reader = new FileReader()
+                    reader.readAsDataURL(this.files[0])
+                    reader.onload = () => {
+                        img = reader.result
+                        document.getElementById("image_url").value=reader.result
+                    }
+                }
+            </script>
+
+        </p>
         <p><input type="submit" name="data" value="Submit" id="data" ></p>
     </form>
     <br>

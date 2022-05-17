@@ -35,8 +35,8 @@
             <input type="text" id="roomNo" name="roomNo">
             <button id="roomNoGenerator" onclick="generateRoom()">Generate Room</button>
         </p>
-        <p style=" width: 100%"><label for="image_url"> Image (URL) </label><input type="text" id="image_url" name="image_url" value="<%= image%>"></p>
-        <button id="connect" onclick="connectToRoom()"  >Connect</button>
+        <p style=" width: 100%"><label for="image_url"> Image (URL) </label><input type="text" id="image_url" name="image_url" value="<%= NewsId%>"></p>
+        <button id="connect" onclick="connectToRoom()" >Connect</button>
     </form>
     <br>
     <button onclick='location.href=("mainPage")'>Go to main Page</button>
@@ -48,7 +48,7 @@
     </div>
     </p>
     <h2 id="imageTitle"></h2>
-    <p id="text"><%= text%></p>
+    <p id="text"><%= ReportText%></p>
     <div id="reportingBoard"  style="width: 100%; height: 50vh">
             <canvas  id="canvas" ></canvas>
             <canvas id="resultCanvas"></canvas>
