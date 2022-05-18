@@ -1,0 +1,376 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "version": "4.0.0",
+    "title": "swagger",
+    "description": "the solution",
+    "termsOfService": "http://api_url/terms/",
+    "contact": {
+      "name": "COM3504/6504",
+      "email": "lliu79@sheffield.ac.uk",
+      "url": "http://shef.ac.uk"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/",
+      "description": "the only Local server"
+    }
+  ],
+  "paths": {
+    "/stories": {
+      "post": {
+        "tags": [
+          "Create Stories"
+        ],
+        "description": "Create Stories",
+        "operationId": "Create Stories",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Stories"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "New stories were created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatedStories"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "no report title provided",
+                  "internal_code": "missing_parameters"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ,
+
+
+    "/chat_text": {
+      "post": {
+        "tags": [
+          "Store Chat Text"
+        ],
+        "description": "Store chat text",
+        "operationId": "Store chat text",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/chat"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Store chat text success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/chat_text"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "no userId provided",
+                  "internal_code": "missing_parameters"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+
+    "/graph_data": {
+      "post": {
+        "tags": [
+          "Store Graph Data"
+        ],
+        "description": "Store graph data",
+        "operationId": "Store graph data",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/graph"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Store graph data success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/graph_data"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "no resultName provided",
+                  "internal_code": "missing_parameters"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "components": {
+      "schemas": {
+        "author_name": {
+          "type": "string",
+          "description": "people who posted the story",
+          "example": "Leo"
+        },
+        "report_title": {
+          "type": "string",
+          "example": "STORY"
+        },
+        "report_text": {
+                          "type": "string",
+                          "description": "the content of the story",
+                          "example": "This is a story"
+                        },
+        "image_url": {
+                          "type": "string",
+                          "description": "link to image",
+                          "example": "./images/cathedral.jpg"
+                        },
+
+        "userId": {
+          "type": "string",
+          "description": "who sent this chat",
+          "example": "Leo"
+        },
+
+        "resultId": {
+          "type": "string",
+          "description": "Id",
+          "example": "id: /m/01jz6d"
+        },
+        "resultName": {
+          "type": "string",
+          "description": "Name",
+          "example": "LeBron James"
+        },
+        "resultDescription": {
+          "type": "string",
+          "description": "Description",
+          "example": "LeBron Raymone James Sr. is an American professional basketball player for the Los Angeles Lakers of the National Basketball Association."
+        },
+        "resultUrl": {
+          "type": "string",
+          "description": "Url",
+          "example": "https://en.wikipedia.org/wiki/LeBron_James"
+        },
+        "resultPanel": {
+          "type": "string",
+          "description": "resultPanel",
+          "example": "block"
+        },
+
+
+        "text": {
+          "type": "string",
+          "description": "Chat content",
+          "example": "Hello"
+        },
+        "text": {
+          "type": "string",
+          "description": "Chat content",
+          "example": "Hello"
+        },
+        "text": {
+          "type": "string",
+          "description": "Chat content",
+          "example": "Hello"
+        },
+
+        "Stories": {
+          "type": "object",
+          "properties": {
+            "author_name": {
+              "$ref": "#/components/schemas/author_name"
+            },
+            "report_title": {
+              "$ref": "#/components/schemas/report_title"
+            }
+          }
+        },
+
+
+        "graph": {
+          "type": "object",
+          "properties": {
+            "resultId": {
+              "$ref": "#/components/schemas/resultId"
+            },
+            "resultUrl": {
+              "$ref": "#/components/schemas/resultUrl"
+            }
+          }
+        },
+
+
+        "chat": {
+          "type": "object",
+          "properties": {
+            "author_name": {
+              "$ref": "#/components/schemas/userId"
+            },
+            "report_title": {
+              "$ref": "#/components/schemas/text"
+            }
+          }
+        },
+
+        "chat_text": {
+          "type": "object",
+          "properties": {
+            "author_name": {
+              "$ref": "#/components/schemas/userId"
+            },
+            "report_title": {
+              "$ref": "#/components/schemas/text"
+            }
+          },
+          "example": "{userId: Leo, text: Hello}"
+        },
+
+        "CreatedStories": {
+          "type": "object",
+          "properties": {
+            "author_name": {
+              "$ref": "#/components/schemas/author_name"
+            },
+            "report_title": {
+              "$ref": "#/components/schemas/report_title"
+            },
+            "report_text": {
+              "$ref": "#/components/schemas/report_text"
+            },
+            "image_url": {
+                          "$ref": "#/components/schemas/image_url"
+                        }
+          },
+          "example": "{author_name: Leo, report_title: STORY,  report_text: This is a story,  image_url: ./images/cathedral.jpg}"
+        },
+
+        "graph_data": {
+          "type": "object",
+          "properties": {
+            "resultId": {
+              "$ref": "#/components/schemas/resultId"
+            },
+            "resultName": {
+              "$ref": "#/components/schemas/resultName"
+            },
+            "resultDescription": {
+              "$ref": "#/components/schemas/resultDescription"
+            },
+            "resultUrl": {
+              "$ref": "#/components/schemas/resultUrl"
+            },
+            "resultPanel": {
+              "$ref": "#/components/schemas/resultPanel"
+            }
+          },
+          "example": "{resultId: id: /m/01jz6d, resultName: LeBron James,  resultDescription: LeBron Raymone James Sr. is an American professional basketball player for the Los Angeles Lakers of the National Basketball Association.,  resultUrl: https://en.wikipedia.org/wiki/LeBron_James, resultPanel: block}"
+        },
+        "Error": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string"
+            },
+            "internal_code": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+}
