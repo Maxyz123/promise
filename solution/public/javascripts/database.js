@@ -20,7 +20,7 @@ const TEXT_STORE_NAME= 'store_text';
 const DRAWN_STORE_NAME= 'store_drawn';
 const GRAPH_STORE_NAME= 'store_graph';
 /**
- * it inits the database and creates an index for the sum field
+ * it inits the database and creates an index for the field
  */
 async function initStoryDatabase(){
     if (!db) {
@@ -63,45 +63,13 @@ async function initStoryDatabase(){
 }
 window.initStoryDatabase= initStoryDatabase;
 
-/**async function initTextDatabase(){
-    if (!db) {
-        db = await idb.openDB(TEXT_DB_NAME, 7, {
-            upgrade(upgradeDb, oldVersion, newVersion) {
-                if (!upgradeDb.objectStoreNames.contains(TEXT_STORE_NAME)) {
-                    let sumsDB = upgradeDb.createObjectStore(TEXT_STORE_NAME, {
-                        keyPath: 'id',
-                        autoIncrement: true
-                    });
-                    sumsDB.createIndex('text', 'text', {unique: false, multiEntry: true});
-                }
-            }
-        });
-        console.log('db created');
-    }
-}
- window.initTextDatabase= initTextDatabase;
 
- async function initDrawnDatabase(){
-    if (!db) {
-        db = await idb.openDB(DRAWN_DB_NAME, 7, {
-            upgrade(upgradeDb, oldVersion, newVersion) {
-                if (!upgradeDb.objectStoreNames.contains(DRAWN_STORE_NAME)) {
-                    let sumsDB = upgradeDb.createObjectStore(DRAWN_STORE_NAME, {
-                        keyPath: 'id',
-                        autoIncrement: true
-                    });
-                    sumsDB.createIndex('Drawn', 'userId', {unique: false, multiEntry: true});
-                }
-            }
-        });
-        console.log('db created');
-    }
-}
- window.initDrawnDatabase= initDrawnDatabase;
- /**
- * it saves the sum into the database
+
+/**
+ * it saves the story data into the database
  * if the database is not supported, it will use localstorage
- * @param sumObject: it contains  two numbers and their sum, e.g. {num1, num2, sum}
+ * @param Object story data
+ * @returns {Promise<void>}
  */
 async function storeStoryData(Object) {
     console.log('inserting: '+JSON.stringify(Object));
@@ -122,7 +90,12 @@ async function storeStoryData(Object) {
 }
 window.storeStoryData= storeStoryData;
 
-
+/**
+ * it saves the graph data into the database
+ * if the database is not supported, it will use localstorage
+ * @param Object graph data
+ * @returns {Promise<void>}
+ */
 async function storeGraphData(Object) {
     console.log('inserting: '+JSON.stringify(Object));
     if (!db)
@@ -142,7 +115,12 @@ async function storeGraphData(Object) {
 }
 window.storeGraphData= storeGraphData;
 
-
+/**
+ * it saves the text data into the database
+ * if the database is not supported, it will use localstorage
+ * @param Object text data
+ * @returns {Promise<void>}
+ */
 async function storeTextData(Object) {
     console.log('inserting: '+JSON.stringify(Object));
     if (!db)
@@ -161,7 +139,12 @@ async function storeTextData(Object) {
     else localStorage.setItem(Object, JSON.stringify(Object));
 }
 window.storeTextData= storeTextData;
-
+/**
+ * it saves the drawn data into the database
+ * if the database is not supported, it will use localstorage
+ * @param Object drawn data
+ * @returns {Promise<void>}
+ */
 async function storeDrawnData(Object) {
     console.log('inserting: '+JSON.stringify(Object));
     if (!db)
@@ -181,6 +164,11 @@ async function storeDrawnData(Object) {
 }
 window.storeDrawnData= storeDrawnData;
 
+/**
+ * Get the specified text data from indexedDB
+ * @param indexValue Index and display based on this value
+ * @returns {Promise<void>}
+ */
 async function cursorGetDataByIndex(indexValue) {
     if (!db)
         await (initStoryDatabase());
@@ -206,6 +194,13 @@ async function cursorGetDataByIndex(indexValue) {
 }
 window.cursorGetDataByIndex= cursorGetDataByIndex;
 
+/**
+ * Get the specified drawn data from indexedDB
+ * @param indexValue Index and display based on this value
+ * @param imgUrl Index and display based on this value
+ * @returns {Promise<void>}
+ * @constructor
+ */
 async function GetDataByIndex(indexValue, imgUrl) {
     if (!db)
         await (initStoryDatabase());
@@ -240,27 +235,5 @@ window.GetDataByIndex= GetDataByIndex;
 
 
 
-/*
-        let list = [];
-        let store = db.transaction(TEXT_STORE_NAME, "readwrite").objectStore(TEXT_STORE_NAME); // 仓库对象
-        let request = store
-            .index('userId') // 索引对象
-            .openCursor(IDBKeyRange.only(indexValue)); // 指针对象
-        request.onsuccess = function (e) {
-            let cursor = e.target.result;
-            if (cursor) {
-                // 必须要检查
-                list.push(cursor.value);
-                cursor.continue(); // 遍历了存储对象中的所有内容
 
-            } else {
-                console.log("游标索引查询结果：", list);
-
-            }
-
- x
-
-        };
-
- */
 

@@ -1,3 +1,8 @@
+/**
+ * Create a new report
+ * @param url image url
+ * @param data image data
+ */
 function sendAxiosQuery(url, data) {
     if(url=='/newReport'){
         axios.post(url, data)
@@ -88,7 +93,10 @@ function sendAxiosQuery(url, data) {
 }
 
 
-
+/**
+ * Submit data
+ * @param url image url
+ */
 function onSubmit(url) {
     var formArray= $("form").serializeArray();
     var data={};
