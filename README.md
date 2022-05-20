@@ -53,11 +53,11 @@ Users can view their history which is stored in IndexedDB, When people rejoin th
 ## Features
 1.	Standard main page to show all news reports dynamically in MongoDB database.
 2.	Users can submit new reports to the back-end data resource service in new report page.
-3.	By selecting news titles or pictures, people can pass the image URL to index and create a new Chatting Room.
+3.	Onclick news titles or pictures, people can pass the selected Report information to index and create a new Chatting Room.
 4.	Using Socket to implement communication between rooms in same ID and sync the pictures, annotations and chatting messages.
 5.	People can chat, post pictures, make notes and annotations, and search information using knowledge graph in the Chat room.
 6.	Using Knowledge Graph to let users search for different type of information online.
 7. 	Using IndexedDB to record users history and enable them to view the history when they connect to the same room again.
-8.	Using service workers to implement offline service.
+8.	Implemented offline service so that people can work offline and their annotations will be stored in IndexedDB.
 9.	Canvas set in chatting rooms so that users can draw annotations and the socket.io will share the annotation between rooms in the same Room Number.
-10. 	Using Swagger to record project structure and features document.
+10. 	Using Swagger and JavaDocs to record project structure and features.
